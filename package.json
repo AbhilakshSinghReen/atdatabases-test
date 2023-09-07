@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "@databases/mysql": "^6.0.0",
-    "@databases/pg": "^5.4.1"
+    "@databases/pg": "^5.4.1",
+    "dotenv": "^16.3.1"
   }
 }
