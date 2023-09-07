@@ -17,19 +17,12 @@ async function main() {
   });
   console.log("Connection to postgres established!");
 
-  createUsersTableIfNotExists(pgDb);
   //   dropUsersTable(pgDb);
+  //   createUsersTableIfNotExists(pgDb);
 
-//   await insertUser(pgDb, "me@example.com", "red");
-
-  let user = await getUser(pgDb, "me@example.com");
-  console.log("user =", user); // should output null
-
-  //   await insertUser(pgDb, "me2@example.com", "yellow");
-  //   await updateUser(pgDb, "me@example.com", "blue");
-
-  //   user = await getUser(pgDb, "me@example.com");
-  //   console.log("user =", user);
+  await insertUser(pgDb, "me@example.com", "red", "2023-09-01");
+  user = await getUser(pgDb, "me@example.com");
+  console.log("user =", user);
 
   pgDb.dispose();
   console.log("Connection to postgres terminated.");

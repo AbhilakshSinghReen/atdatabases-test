@@ -6,6 +6,7 @@ async function createUsersTableIfNotExists(db) {
           id SERIAL NOT NULL PRIMARY KEY,
           email TEXT NOT NULL,
           favorite_color TEXT NOT NULL,
+          date_of_birth DATE NOT NULL DEFAULT CURRENT_DATE,
           UNIQUE(email)
         )
       `);
@@ -17,10 +18,10 @@ async function dropUsersTable(db) {
       `);
 }
 
-async function insertUser(db, email, favoriteColor) {
+async function insertUser(db, email, favoriteColor, dateOfBirth) {
   await db.query(sql`
-        INSERT INTO users (email, favorite_color)
-        VALUES (${email}, ${favoriteColor})
+        INSERT INTO users (email, favorite_color, date_of_birth)
+        VALUES (${email}, ${favoriteColor}, ${dateOfBirth})
       `);
 }
 
