@@ -8,5 +8,9 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@databases/mysql": "^6.0.0",
+    "@databases/pg": "^5.4.1"
+  }
 }
