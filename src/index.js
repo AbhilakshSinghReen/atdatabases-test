@@ -1,32 +1,75 @@
-const createConnectionPoolPG = require("@databases/pg");
 require("dotenv").config();
-
-const {
-  createUsersTableIfNotExists,
-  dropUsersTable,
-  insertUser,
-  updateUser,
-  deleteUser,
-  getUser,
-} = require("./models/user");
+const testMySQL = require("./testers/mysql");
+const testPg = require("./testers/pg");
 
 async function main() {
-  const pgDb = createConnectionPoolPG({
+  const commonConnectionPoolConfig = {
     connectionString: process.env.PG_DATABASE_URL,
     bigIntMode: "string",
+  };
+
+  console.log("-----> Test 1");
+  let fetchedUsers = await testPg({
+    ...commonConnectionPoolConfig,
+    // timeZone: "utc",
   });
-  console.log("Connection to postgres established!");
+  console.log(fetchedUsers);
+  console.log("---> Test 1 Completed");
+  console.log("");
 
-  //   dropUsersTable(pgDb);
-  //   createUsersTableIfNotExists(pgDb);
+  // console.log("-----> Test 2");
+  // fetchedUsers = await testPg({
+  //   ...commonConnectionPoolConfig,
+  //   timeZone: "local",
+  // });
+  // console.log(fetchedUsers);
+  // console.log("---> Test 2 Completed");
 
-  await insertUser(pgDb, "me@example.com", "red", "2023-09-01");
-  user = await getUser(pgDb, "me@example.com");
-  console.log("user =", user);
+  // console.log("-----> Test 3");
+  // fetchedUsers = await testPg({
+  //   ...commonConnectionPoolConfig,
+  //   timeZone: {
+  //     server: "utc",
+  //     client: "utc",
+  //   },
+  // });
+  // console.log(fetchedUsers);
+  // console.log("---> Test 3 Completed");
 
-  pgDb.dispose();
-  console.log("Connection to postgres terminated.");
+  // console.log("-----> Test 4");
+  // fetchedUsers = await testPg({
+  //   ...commonConnectionPoolConfig,
+  //   timeZone: {
+  //     server: "local",
+  //     client: "utc",
+  //   },
+  // });
+  // console.log(fetchedUsers);
+  // console.log("---> Test 4 Completed");
 
+  // console.log("-----> Test 5");
+  // fetchedUsers = await testPg({
+  //   ...commonConnectionPoolConfig,
+  //   timeZone: {
+  //     server: "utc",
+  //     client: "local",
+  //   },
+  // });
+  // console.log(fetchedUsers);
+  // console.log("---> Test 5 Completed");
+
+  // console.log("-----> Test 6");
+  // fetchedUsers = await testPg({
+  //   ...commonConnectionPoolConfig,
+  //   timeZone: {
+  //     server: "local",
+  //     client: "local",
+  //   },
+  // });
+  // console.log(fetchedUsers);
+  // console.log("---> Test 6 Completed");
+
+  /////
   process.exit();
 }
 
